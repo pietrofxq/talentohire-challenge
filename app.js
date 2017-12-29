@@ -1,4 +1,4 @@
-let prettifiedNumber = document.getElementById('prettified-number')
+const prettifiedNumber = document.getElementById('prettified-number')
 const form = document.getElementById('form')
 
 const THOUSAND = 1e3
@@ -14,7 +14,7 @@ function getDivision (number, divisor, prefix) {
 }
 
 function getPrettified (number, prefix) {
-  let decimal = (+number < TEN_THOUSAND) || (+number > MILLION && +number < TEN_MILLION) ? 1 : 2
+  const decimal = (+number < TEN_THOUSAND) || (+number > MILLION && +number < TEN_MILLION) ? 1 : 2
   return `${number.substr(0, decimal)}${number.substr(decimal, 1) == 0 ? '' : '.' + number.substr(2, 1)}${prefix}`
 }
 
@@ -39,7 +39,6 @@ function prettify () {
 }
 
 const animationEndEvent = (function whichAnimationEvent () {
-  let t
   const el = document.createElement('fakeelement')
 
   const animations = {
@@ -49,21 +48,21 @@ const animationEndEvent = (function whichAnimationEvent () {
     'WebkitAnimation': 'webkitAnimationEnd'
   }
 
-  for (t in animations) {
+  for (let t in animations) {
     if (el.style[t] !== undefined) {
       return animations[t]
     }
   }
 })()
 
-prettifiedNumber.addEventListener(animationEndEvent, () => {
+prettifiedNumber.addEventListener(animationEndEvent, function () {
   prettifiedNumber.classList.remove('animate')
 })
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', function (e) {
   e.preventDefault()
   prettifiedNumber.classList.add('animate')
-  setTimeout(() => {
+  setTimeout(function () {
     prettifiedNumber.innerHTML = prettify()
   }, 100)
 })
