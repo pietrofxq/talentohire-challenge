@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+  color: #232323;
+}
+
+.container {
+  width: 500px;
+  margin: auto;
+  text-align: center;
+  margin-top: 50px;;
+}
+
+.container .title {
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.form-actions {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.form-actions input,
+.form-actions button {
+  height: 35px;
+}
+
+.form-actions input {
+  border-radius: 4px;
+  width: 340px;
+  margin-right: 30px;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.form-actions button {
+  padding: 0px 15px;
+  border-radius: 2px;
+  background: rgb(155, 89, 182);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+  cursor: pointer;
+  float: right;
+}
+
+.form-actions button:hover,
+.form-actions button:active {
+  background:rgb(142, 68, 173);
+}
+
+.result {
+  background: #fefefe;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.result h2 {
+  font-weight: 300;
+}
+
+@media (max-width: 500px) {
+  .container {
+    width: 100%;
+  }
+
+  .form-actions {
+    padding: 5px;
+    margin-top: 10px;
+  }
+
+  .form-actions input,
+  .form-actions button {
+    display: block;
+    width: 100%;
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }
+
+  .result {
+    margin: 0 15px;
+  }
+}
+
+.animate {
+  animation: remove 0.2s;
+}
+
+@keyframes remove {
+  0% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(200%)
+  }
+
+  51% {
+    transform: translateY(-200%)
+  }
+
+  100% {
+    transform: translateY(0)
+  }
+}
