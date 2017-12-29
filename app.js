@@ -1,24 +1,40 @@
 let prettifiedNumber = document.getElementById('prettified-number')
 const form = document.getElementById('form')
 
-const THOUSAND = 1000
-const TEN_THOUSAND = 10000
-const HUNDRED_THOUSAND = 100000
-const MILLION = 1000000
+const THOUSAND = 1e3
+const TEN_THOUSAND = 1e4
+const HUNDRED_THOUSAND = 1e5
+const MILLION = 1e6
+const TEN_MILLION = 1e7
+const HUNDRED_MILLION = 1e8
+const BILLION = 1e9
+
+function getDivision(number, divisor, prefix) {
+  return `${(+number / divisor).toFixed(2)}${prefix}`
+}
+
+function getPrettified(number, prefix) {
+  let decimal = +number < TEN_THOUSAND || +number > MILLION && +number < TEN_MILLION ? 1 : 2
+  return `${number.substr(0, decimal)}${number.substr(decimal, 1) == 0 ? '' : '.' + number.substr(2, 1) }${prefix}`
+} 
 
 function prettify () {
   const number = document.getElementById('raw-number').value.replace(/,/g, '')
+  console.log("number:", number)
   if (!number) return 'Please enter a number'
   if (isNaN(number)) return 'Number not valid!'
   if (+number < THOUSAND) return number
-  if (+number < TEN_THOUSAND) {
-    return `${number[0]}${number[1] > 0 ? '.' + number[1] : ''}k`
-  }
   if (+number < HUNDRED_THOUSAND) {
-    return `${number.substr(0, 2)}.${number.substr(2, 1)}k`
+    return getPrettified(number, 'k')
   }
   if (+number <= MILLION) {
-    return (number / MILLION).toFixed(2) + 'M'
+    return getDivision(number, MILLION, 'M')
+  }
+  if (+number < HUNDRED_MILLION) {
+    return getPrettified(number, 'M')
+  }
+  if (+number <= BILLION) {
+    return getDivision(number, BILLION, 'b')
   }
   return 'Number out of scope!'
 }
