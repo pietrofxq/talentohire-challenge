@@ -91,10 +91,10 @@
 }
 
 .animate {
-  animation: remove 0.2s;
+  animation: animate-number 0.2s;
 }
 
-@keyframes remove {
+@keyframes animate-number {
   0% {
     transform: translateY(0)
   }
