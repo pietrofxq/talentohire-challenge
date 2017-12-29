@@ -9,18 +9,17 @@ const TEN_MILLION = 1e7
 const HUNDRED_MILLION = 1e8
 const BILLION = 1e9
 
-function getDivision(number, divisor, prefix) {
+function getDivision (number, divisor, prefix) {
   return `${(+number / divisor).toFixed(2)}${prefix}`
 }
 
-function getPrettified(number, prefix) {
-  let decimal = +number < TEN_THOUSAND || +number > MILLION && +number < TEN_MILLION ? 1 : 2
-  return `${number.substr(0, decimal)}${number.substr(decimal, 1) == 0 ? '' : '.' + number.substr(2, 1) }${prefix}`
-} 
+function getPrettified (number, prefix) {
+  let decimal = (+number < TEN_THOUSAND) || (+number > MILLION && +number < TEN_MILLION) ? 1 : 2
+  return `${number.substr(0, decimal)}${number.substr(decimal, 1) == 0 ? '' : '.' + number.substr(2, 1)}${prefix}`
+}
 
 function prettify () {
   const number = document.getElementById('raw-number').value.replace(/,/g, '')
-  console.log("number:", number)
   if (!number) return 'Please enter a number'
   if (isNaN(number)) return 'Number not valid!'
   if (+number < THOUSAND) return number
@@ -44,14 +43,14 @@ const animationEndEvent = (function whichAnimationEvent () {
   const el = document.createElement('fakeelement')
 
   const animations = {
-    'animation'      : 'animationend',
-    'OAnimation'     : 'oAnimationEnd',
-    'MozAnimation'   : 'animationend',
+    'animation': 'animationend',
+    'OAnimation': 'oAnimationEnd',
+    'MozAnimation': 'animationend',
     'WebkitAnimation': 'webkitAnimationEnd'
   }
 
-  for (t in animations){
-    if (el.style[t] !== undefined){
+  for (t in animations) {
+    if (el.style[t] !== undefined) {
       return animations[t]
     }
   }
@@ -66,5 +65,5 @@ form.addEventListener('submit', (e) => {
   prettifiedNumber.classList.add('animate')
   setTimeout(() => {
     prettifiedNumber.innerHTML = prettify()
-  }, 100) 
+  }, 100)
 })
