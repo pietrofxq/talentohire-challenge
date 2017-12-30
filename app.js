@@ -13,8 +13,13 @@ function getDivision (number, divisor, prefix) {
   return `${(+number / divisor).toFixed(2)}${prefix}`
 }
 
+// Return 1 if number has 1 digit before comma or 2 if 2
+function getDecimalSizeFromNumber (number) {
+  return (+number < TEN_THOUSAND) || (+number > MILLION && +number < TEN_MILLION) ? 1 : 2
+}
+
 function getPrettified (number, prefix) {
-  const decimal = (+number < TEN_THOUSAND) || (+number > MILLION && +number < TEN_MILLION) ? 1 : 2
+  const decimal = getDecimalSizeFromNumber(number)
   return `${number.substr(0, decimal)}${number.substr(decimal, 1) == 0 ? '' : '.' + number.substr(2, 1)}${prefix}`
 }
 
