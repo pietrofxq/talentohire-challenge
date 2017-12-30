@@ -9,6 +9,12 @@ const TEN_MILLION = 1e7
 const HUNDRED_MILLION = 1e8
 const BILLION = 1e9
 
+const ANIMATION_TIMEOUT = 100
+
+function getRawNumber () {
+  return document.getElementById('raw-number').value.replace(/,|\./g, '') // accept numbers with comma or dot too
+}
+
 function getDivision (number, divisor, prefix) {
   return `${(+number / divisor).toFixed(2)}${prefix}`
 }
@@ -20,13 +26,30 @@ function getDecimalSizeFromNumber (number) {
 
 function getPrettified (number, prefix) {
   const decimal = getDecimalSizeFromNumber(number)
-  return `${number.substr(0, decimal)}${number.substr(decimal, 1) == 0 ? '' : '.' + number.substr(2, 1)}${prefix}`
+  return `${number.substr(0, decimal)}${number.substr(decimal, 1) === '0' ? '' : '.' + number.substr(2, 1)}${prefix}`
+}
+
+function isNumberInAllowedRange (number) {
+  return +number < BILLION
+}
+
+function validateNumber (number) {
+  let message = ''
+  if (!number) message = 'Please enter a number'
+  else if (isNaN(number)) message = 'Number not valid!'
+  else if (!isNumberInAllowedRange(number)) message = 'Number out of scope!'
+
+  return {
+    valid: number && !isNaN(number) && isNumberInAllowedRange(number),
+    invalidMessage: message
+  }
 }
 
 function prettify () {
-  const number = document.getElementById('raw-number').value.replace(/,/g, '')
-  if (!number) return 'Please enter a number'
-  if (isNaN(number)) return 'Number not valid!'
+  const number = getRawNumber()
+  let numberValidation = validateNumber(number)
+  if (!numberValidation.valid) return numberValidation.invalidMessage
+
   if (+number < THOUSAND) return number
   if (+number < HUNDRED_THOUSAND) {
     return getPrettified(number, 'k')
@@ -40,7 +63,6 @@ function prettify () {
   if (+number <= BILLION) {
     return getDivision(number, BILLION, 'b')
   }
-  return 'Number out of scope!'
 }
 
 const animationEndEvent = (function whichAnimationEvent () {
@@ -69,5 +91,5 @@ form.addEventListener('submit', function (e) {
   prettifiedNumber.classList.add('animate')
   setTimeout(function () {
     prettifiedNumber.innerHTML = prettify()
-  }, 100)
+  }, ANIMATION_TIMEOUT)
 })

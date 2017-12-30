@@ -39,7 +39,7 @@
 
 .form-actions button {
   padding: 0px 15px;
-  border-radius: 2px;
+  border-radius: 4px;
   background: rgb(155, 89, 182);
   border: 1px solid rgba(0, 0, 0, 0.2);
   color: white;
