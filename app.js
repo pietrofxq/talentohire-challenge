@@ -50,19 +50,11 @@ function prettify () {
   let numberValidation = validateNumber(number)
   if (!numberValidation.valid) return numberValidation.invalidMessage
 
-  if (+number < THOUSAND) return number
-  if (+number < HUNDRED_THOUSAND) {
-    return getPrettified(number, 'k')
-  }
-  if (+number <= MILLION) {
-    return getDivision(number, MILLION, 'M')
-  }
-  if (+number < HUNDRED_MILLION) {
-    return getPrettified(number, 'M')
-  }
-  if (+number <= BILLION) {
-    return getDivision(number, BILLION, 'b')
-  }
+  if (+number < THOUSAND)         return number
+  if (+number < HUNDRED_THOUSAND) return getPrettified(number, 'k')
+  if (+number <= MILLION)         return getDivision(number, MILLION, 'M')
+  if (+number < HUNDRED_MILLION)  return getPrettified(number, 'M')
+  if (+number <= BILLION)         return getDivision(number, BILLION, 'b')
 }
 
 const animationEndEvent = (function whichAnimationEvent () {
