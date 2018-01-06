@@ -47,7 +47,7 @@ function validateNumber (number) {
 
 function prettify () {
   const number = getRawNumber()
-  let numberValidation = validateNumber(number)
+  const numberValidation = validateNumber(number)
   if (!numberValidation.valid) return numberValidation.invalidMessage
 
   if (+number < THOUSAND)         return number
