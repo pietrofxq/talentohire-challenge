@@ -75,7 +75,7 @@ const animationEndEvent = (function whichAnimationEvent () {
 })()
 
 prettifiedNumber.addEventListener(animationEndEvent, function () {
-  prettifiedNumber.classList.remove('animate')
+  this.classList.remove('animate')
 })
 
 form.addEventListener('submit', function (e) {
